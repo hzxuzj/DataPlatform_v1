@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.dataplatform.dao.CardSceneDAO">
+  <resultMap id="BaseResultMap" type="com.example.dataplatform.model.CardScene">
+    <id column="customer_id" jdbcType="BIGINT" property="customerId" />
+    <result column="create_date" jdbcType="VARCHAR" property="createDate" />
+    <result column="create_time" jdbcType="VARCHAR" property="createTime" />
+    <result column="guest_name" jdbcType="VARCHAR" property="guestName" />
+    <result column="guest_gender" jdbcType="VARCHAR" property="guestGender" />
+    <result column="guest_telnum" jdbcType="VARCHAR" property="guestTelnum" />
+    <result column="card_category" jdbcType="VARCHAR" property="cardCategory" />
+    <result column="overdue_date" jdbcType="VARCHAR" property="overdueDate" />
+    <result column="department" jdbcType="VARCHAR" property="department" />
+    <result column="department_code" jdbcType="VARCHAR" property="departmentCode" />
+    <result column="department_telnum" jdbcType="VARCHAR" property="departmentTelnum" />
+    <result column="waiter_name" jdbcType="VARCHAR" property="waiterName" />
+    <result column="waiter_telnum" jdbcType="VARCHAR" property="waiterTelnum" />
+    <result column="status" jdbcType="CHAR" property="status" />
+    <result column="telnum" jdbcType="VARCHAR" property="telnum" />
+    <result column="call_duration" jdbcType="INTEGER" property="callDuration" />
+    <result column="update_date" jdbcType="VARCHAR" property="updateDate" />
+    <result column="update_time" jdbcType="VARCHAR" property="updateTime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.example.dataplatform.model.CardScene">
+    <result column="voiceText" jdbcType="LONGVARCHAR" property="voicetext" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    customer_id, create_date, create_time, guest_name, guest_gender, guest_telnum, card_category, 
+    overdue_date, department, department_code, department_telnum, waiter_name, waiter_telnum, 
+    `status`, telnum, call_duration, update_date, update_time
+  </sql>
+  <sql id="Blob_Column_List">
+    voiceText
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from card_overdue
+    where customer_id = #{customerId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from card_overdue
+    where customer_id = #{customerId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.example.dataplatform.model.CardScene">
+    insert into card_overdue (customer_id, create_date, create_time, 
+      guest_name, guest_gender, guest_telnum, 
+      card_category, overdue_date, department, 
+      department_code, department_telnum, waiter_name, 
+      waiter_telnum, `status`, telnum, 
+      call_duration, update_date, update_time, 
+      voiceText)
+    values (#{customerId,jdbcType=BIGINT}, #{createDate,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, 
+      #{guestName,jdbcType=VARCHAR}, #{guestGender,jdbcType=VARCHAR}, #{guestTelnum,jdbcType=VARCHAR}, 
+      #{cardCategory,jdbcType=VARCHAR}, #{overdueDate,jdbcType=VARCHAR}, #{department,jdbcType=VARCHAR}, 
+      #{departmentCode,jdbcType=VARCHAR}, #{departmentTelnum,jdbcType=VARCHAR}, #{waiterName,jdbcType=VARCHAR}, 
+      #{waiterTelnum,jdbcType=VARCHAR}, #{status,jdbcType=CHAR}, #{telnum,jdbcType=VARCHAR}, 
+      #{callDuration,jdbcType=INTEGER}, #{updateDate,jdbcType=VARCHAR}, #{updateTime,jdbcType=VARCHAR}, 
+      #{voicetext,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.dataplatform.model.CardScene">
+    insert into card_overdue
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="customerId != null">
+        customer_id,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="guestName != null">
+        guest_name,
+      </if>
+      <if test="guestGender != null">
+        guest_gender,
+      </if>
+      <if test="guestTelnum != null">
+        guest_telnum,
+      </if>
+      <if test="cardCategory != null">
+        card_category,
+      </if>
+      <if test="overdueDate != null">
+        overdue_date,
+      </if>
+      <if test="department != null">
+        department,
+      </if>
+      <if test="departmentCode != null">
+        department_code,
+      </if>
+      <if test="departmentTelnum != null">
+        department_telnum,
+      </if>
+      <if test="waiterName != null">
+        waiter_name,
+      </if>
+      <if test="waiterTelnum != null">
+        waiter_telnum,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+      <if test="telnum != null">
+        telnum,
+      </if>
+      <if test="callDuration != null">
+        call_duration,
+      </if>
+      <if test="updateDate != null">
+        update_date,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="voicetext != null">
+        voiceText,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="customerId != null">
+        #{customerId,jdbcType=BIGINT},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="guestName != null">
+        #{guestName,jdbcType=VARCHAR},
+      </if>
+      <if test="guestGender != null">
+        #{guestGender,jdbcType=VARCHAR},
+      </if>
+      <if test="guestTelnum != null">
+        #{guestTelnum,jdbcType=VARCHAR},
+      </if>
+      <if test="cardCategory != null">
+        #{cardCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="overdueDate != null">
+        #{overdueDate,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null">
+        #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentCode != null">
+        #{departmentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentTelnum != null">
+        #{departmentTelnum,jdbcType=VARCHAR},
+      </if>
+      <if test="waiterName != null">
+        #{waiterName,jdbcType=VARCHAR},
+      </if>
+      <if test="waiterTelnum != null">
+        #{waiterTelnum,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="telnum != null">
+        #{telnum,jdbcType=VARCHAR},
+      </if>
+      <if test="callDuration != null">
+        #{callDuration,jdbcType=INTEGER},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="voicetext != null">
+        #{voicetext,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.dataplatform.model.CardScene">
+    update card_overdue
+    <set>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="guestName != null">
+        guest_name = #{guestName,jdbcType=VARCHAR},
+      </if>
+      <if test="guestGender != null">
+        guest_gender = #{guestGender,jdbcType=VARCHAR},
+      </if>
+      <if test="guestTelnum != null">
+        guest_telnum = #{guestTelnum,jdbcType=VARCHAR},
+      </if>
+      <if test="cardCategory != null">
+        card_category = #{cardCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="overdueDate != null">
+        overdue_date = #{overdueDate,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null">
+        department = #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentCode != null">
+        department_code = #{departmentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentTelnum != null">
+        department_telnum = #{departmentTelnum,jdbcType=VARCHAR},
+      </if>
+      <if test="waiterName != null">
+        waiter_name = #{waiterName,jdbcType=VARCHAR},
+      </if>
+      <if test="waiterTelnum != null">
+        waiter_telnum = #{waiterTelnum,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=CHAR},
+      </if>
+      <if test="telnum != null">
+        telnum = #{telnum,jdbcType=VARCHAR},
+      </if>
+      <if test="callDuration != null">
+        call_duration = #{callDuration,jdbcType=INTEGER},
+      </if>
+      <if test="updateDate != null">
+        update_date = #{updateDate,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="voicetext != null">
+        voiceText = #{voicetext,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where customer_id = #{customerId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.example.dataplatform.model.CardScene">
+    update card_overdue
+    set create_date = #{createDate,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=VARCHAR},
+      guest_name = #{guestName,jdbcType=VARCHAR},
+      guest_gender = #{guestGender,jdbcType=VARCHAR},
+      guest_telnum = #{guestTelnum,jdbcType=VARCHAR},
+      card_category = #{cardCategory,jdbcType=VARCHAR},
+      overdue_date = #{overdueDate,jdbcType=VARCHAR},
+      department = #{department,jdbcType=VARCHAR},
+      department_code = #{departmentCode,jdbcType=VARCHAR},
+      department_telnum = #{departmentTelnum,jdbcType=VARCHAR},
+      waiter_name = #{waiterName,jdbcType=VARCHAR},
+      waiter_telnum = #{waiterTelnum,jdbcType=VARCHAR},
+      `status` = #{status,jdbcType=CHAR},
+      telnum = #{telnum,jdbcType=VARCHAR},
+      call_duration = #{callDuration,jdbcType=INTEGER},
+      update_date = #{updateDate,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=VARCHAR},
+      voiceText = #{voicetext,jdbcType=LONGVARCHAR}
+    where customer_id = #{customerId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.dataplatform.model.CardScene">
+    update card_overdue
+    set create_date = #{createDate,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=VARCHAR},
+      guest_name = #{guestName,jdbcType=VARCHAR},
+      guest_gender = #{guestGender,jdbcType=VARCHAR},
+      guest_telnum = #{guestTelnum,jdbcType=VARCHAR},
+      card_category = #{cardCategory,jdbcType=VARCHAR},
+      overdue_date = #{overdueDate,jdbcType=VARCHAR},
+      department = #{department,jdbcType=VARCHAR},
+      department_code = #{departmentCode,jdbcType=VARCHAR},
+      department_telnum = #{departmentTelnum,jdbcType=VARCHAR},
+      waiter_name = #{waiterName,jdbcType=VARCHAR},
+      waiter_telnum = #{waiterTelnum,jdbcType=VARCHAR},
+      `status` = #{status,jdbcType=CHAR},
+      telnum = #{telnum,jdbcType=VARCHAR},
+      call_duration = #{callDuration,jdbcType=INTEGER},
+      update_date = #{updateDate,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=VARCHAR}
+    where customer_id = #{customerId,jdbcType=BIGINT}
+  </update>
+  <select id="get" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from card_overdue
+    where status=1
+  </select>
+
+</mapper>
