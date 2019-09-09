@@ -22,27 +22,31 @@ public class SceneResultController {
     CardSceneService cardSceneService;
     @Autowired
     Task task;
-    @RequestMapping(value="/dataplatform/result",method = RequestMethod.POST)
-    public void getDepartmentbyid(@RequestBody JSONObject jsonParam){
-        System.out.println(jsonParam.toJSONString());
-    }
+//    @RequestMapping(value="/dataplatform/result",method = RequestMethod.POST)
+//    public void getDepartmentbyid(@RequestBody JSONObject jsonParam){
+//        System.out.println(jsonParam.toJSONString());
+//    }
 
-    @PostConstruct
-    public void test7() throws Exception {
-
-        List<CardScene> list=cardSceneService.get();
-        cardScenes.setCardScenes(list);
-        task=cardScenes.formateTask();
-        //  System.out.println(task.toString());
-//        String s =JSON.toJSONString(task);
-//        System.out.println(s);
-        JSONObject jsontask=(JSONObject) JSON.toJSON(task);
-        String jsonstr=JSON.toJSONString(jsontask);
-        System.out.println(jsonstr);
-
-        RestTemplateUtil restTemplateUtil=new RestTemplateUtil();
-        String url="http://10.16.213.138:8088/callout-adapter/adapter/tasks";
-        System.out.println(restTemplateUtil.PostJsonData(url,jsontask));
-
-    }
+//    @PostConstruct
+//    public void test7() throws Exception {
+//       cardScenes.SendToRemoteAPI();
+//
+//
+//
+//
+////        List<CardScene> list=cardSceneService.get();
+////        cardScenes.setCardScenes(list);
+////        task=cardScenes.formateTask();
+//        //  System.out.println(task.toString());
+////        String s =JSON.toJSONString(task);
+////        System.out.println(s);
+////        JSONObject jsontask=(JSONObject) JSON.toJSON(task);
+////        String jsonstr=JSON.toJSONString(jsontask);
+////        System.out.println(jsonstr);
+////
+////        RestTemplateUtil restTemplateUtil=new RestTemplateUtil();
+////        String url="http://10.16.213.138:8088/callout-adapter/adapter/tasks";
+////        System.out.println(restTemplateUtil.PostJsonData(url,jsontask));
+//
+//    }
 }

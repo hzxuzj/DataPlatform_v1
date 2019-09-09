@@ -1,13 +1,21 @@
 package com.example.dataplatform.model;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.example.dataplatform.services.CardSceneService;
 import com.example.dataplatform.util.DateUtil;
+import com.example.dataplatform.util.RestTemplateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
 @Component
-public  class CardScenes{
+public  class CardScenes implements Scene{
     @Autowired
     Task task;
     @Autowired
@@ -20,6 +28,9 @@ public  class CardScenes{
     RuleControl ruleControl;
     @Autowired
     Rules rules;
+    @Autowired
+    CardSceneService cardSceneService;
+
     private List<CardScene> cardScenes;
     public List<CardScene> getCardScenes() {
         return cardScenes;
@@ -29,6 +40,8 @@ public  class CardScenes{
         this.cardScenes = cardScenes;
     }
     public Task formateTask(){//将场景数据进行统一转换为接口调用数据
+        List<CardScene> list=cardSceneService.get();
+        this.cardScenes=list;
         task.setTemplateId(2000003);
         SimpleDateFormat df =new SimpleDateFormat("yyyy-MM-ddHH:mm:ss");
         task.setName("身份证过期通知"+df.format(new Date()));
@@ -102,5 +115,24 @@ public  class CardScenes{
         return  task;
 
     }
+
+    @RequestMapping(value="/dataplatform/result",method = RequestMethod.POST)
+    public String resultWrite(@RequestBody JSONObject jsonParam){
+        System.out.println(jsonParam.toJSONString());
+        return jsonParam.toJSONString();
+    }
+    public String SendToRemoteAPI(){
+        List<CardScene> list=cardSceneService.get();
+        this.setCardScenes(list);
+        task=this.formateTask();
+        JSONObject jsontask=(JSONObject) JSON.toJSON(task);
+        String jsonstr=JSON.toJSONString(jsontask);
+        System.out.println(jsonstr);
+        RestTemplateUtil restTemplateUtil=new RestTemplateUtil();
+        String url="http://10.16.213.138:8088/callout-adapter/adapter/tasks";
+        String result =restTemplateUtil.PostJsonData(url,jsontask);
+        System.out.println(result);
+        return result;
+    };
 
 }
