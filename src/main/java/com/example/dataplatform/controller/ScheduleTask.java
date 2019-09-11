@@ -1,6 +1,8 @@
 package com.example.dataplatform.controller;
 
 import com.example.dataplatform.model.CardScenes;
+import com.example.dataplatform.model.SharesScene;
+import com.example.dataplatform.model.SharesScenes;
 import com.example.dataplatform.model.Task;
 import com.example.dataplatform.services.CardSceneService;
 import javafx.application.Application;
@@ -24,17 +26,23 @@ public class ScheduleTask {
     @Autowired
     CardScenes cardScenes;
     @Autowired
-    CardSceneService cardSceneService;
-    @Autowired
     Task task;
+    @Autowired
+    SharesScenes sharesScenes;
     private final static Logger logger= LoggerFactory.getLogger(ScheduledTask.class);
-    @Async("myExecutor")
-    @Scheduled(fixedRate = 5000)
-    public void taskrun()
-    {
-        cardScenes.SendToRemoteAPI();
-        logger.info("测试login");
-    }
-
+//    @Async("myExecutor")
+//    @Scheduled(fixedRate = 5000)
+//    public void CardScenerun()
+//    {
+//        cardScenes.SendToRemoteAPI();
+//        logger.info("测试login");
+//    }
+//    @Async("myExecutor")
+//    @Scheduled(fixedRate = 5000)
+//    public void SharesScenerun()
+//    {
+//        sharesScenes.SendToRemoteAPI();
+//        logger.info("测试Shares场景定时任务");
+//    }
 
 }

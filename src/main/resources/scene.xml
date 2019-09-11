@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans>
+    <!-- 配置service层解耦 -->
+    <bean id="CardScenes" class="com.example.dataplatform.model.CardScenes"></bean>
+    <bean id="SharesScenes" class="com.example.dataplatform.model.SharesScenes"></bean>
+
+
+    <!-- 配置dao层解耦 -->
+<!--    <bean id="CategoryDao" class="com.project.dao.imp.CategoryDaoImpl"></bean>-->
+<!--    <bean id="ProductDao" class="com.project.dao.imp.ProductDaoImpl"></bean>-->
+<!--    <bean id="UserDao" class="com.project.dao.imp.UserDaoImpl"></bean>-->
+</beans>

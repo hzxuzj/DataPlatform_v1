@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.dataplatform.dao.SharesSceneDAO">
+  <resultMap id="BaseResultMap" type="com.example.dataplatform.model.SharesScene">
+    <id column="guest_id" jdbcType="VARCHAR" property="guestId" />
+    <result column="create_date" jdbcType="VARCHAR" property="createDate" />
+    <result column="create_time" jdbcType="VARCHAR" property="createTime" />
+    <result column="guest_name" jdbcType="VARCHAR" property="guestName" />
+    <result column="guest_gender" jdbcType="VARCHAR" property="guestGender" />
+    <result column="guest_telnum" jdbcType="VARCHAR" property="guestTelnum" />
+    <result column="capital_account" jdbcType="VARCHAR" property="capitalAccount" />
+    <result column="share_name" jdbcType="VARCHAR" property="shareName" />
+    <result column="share_code" jdbcType="VARCHAR" property="shareCode" />
+    <result column="buy_num" jdbcType="VARCHAR" property="buyNum" />
+    <result column="spec" jdbcType="VARCHAR" property="spec" />
+    <result column="payment" jdbcType="VARCHAR" property="payment" />
+    <result column="department" jdbcType="VARCHAR" property="department" />
+    <result column="department_code" jdbcType="VARCHAR" property="departmentCode" />
+    <result column="department_phone" jdbcType="VARCHAR" property="departmentPhone" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="telnum" jdbcType="VARCHAR" property="telnum" />
+    <result column="call_duration" jdbcType="VARCHAR" property="callDuration" />
+    <result column="update_date" jdbcType="VARCHAR" property="updateDate" />
+    <result column="update_time" jdbcType="VARCHAR" property="updateTime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.example.dataplatform.model.SharesScene">
+    <result column="voiceText" jdbcType="LONGVARCHAR" property="voicetext" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    guest_id, create_date, create_time, guest_name, guest_gender, guest_telnum, capital_account, 
+    share_name, share_code, buy_num, spec, payment, department, department_code, department_phone, 
+    `status`, telnum, call_duration, update_date, update_time
+  </sql>
+  <sql id="Blob_Column_List">
+    voiceText
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from shares_shortage
+    where guest_id = #{guestId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from shares_shortage
+    where guest_id = #{guestId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.example.dataplatform.model.SharesScene">
+    insert into shares_shortage (guest_id, create_date, create_time, 
+      guest_name, guest_gender, guest_telnum, 
+      capital_account, share_name, share_code, 
+      buy_num, spec, payment, 
+      department, department_code, department_phone, 
+      `status`, telnum, call_duration, 
+      update_date, update_time, voiceText
+      )
+    values (#{guestId,jdbcType=VARCHAR}, #{createDate,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, 
+      #{guestName,jdbcType=VARCHAR}, #{guestGender,jdbcType=VARCHAR}, #{guestTelnum,jdbcType=VARCHAR}, 
+      #{capitalAccount,jdbcType=VARCHAR}, #{shareName,jdbcType=VARCHAR}, #{shareCode,jdbcType=VARCHAR}, 
+      #{buyNum,jdbcType=VARCHAR}, #{spec,jdbcType=VARCHAR}, #{payment,jdbcType=VARCHAR}, 
+      #{department,jdbcType=VARCHAR}, #{departmentCode,jdbcType=VARCHAR}, #{departmentPhone,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, #{telnum,jdbcType=VARCHAR}, #{callDuration,jdbcType=VARCHAR}, 
+      #{updateDate,jdbcType=VARCHAR}, #{updateTime,jdbcType=VARCHAR}, #{voicetext,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.dataplatform.model.SharesScene">
+    insert into shares_shortage
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="guestId != null">
+        guest_id,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="guestName != null">
+        guest_name,
+      </if>
+      <if test="guestGender != null">
+        guest_gender,
+      </if>
+      <if test="guestTelnum != null">
+        guest_telnum,
+      </if>
+      <if test="capitalAccount != null">
+        capital_account,
+      </if>
+      <if test="shareName != null">
+        share_name,
+      </if>
+      <if test="shareCode != null">
+        share_code,
+      </if>
+      <if test="buyNum != null">
+        buy_num,
+      </if>
+      <if test="spec != null">
+        spec,
+      </if>
+      <if test="payment != null">
+        payment,
+      </if>
+      <if test="department != null">
+        department,
+      </if>
+      <if test="departmentCode != null">
+        department_code,
+      </if>
+      <if test="departmentPhone != null">
+        department_phone,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+      <if test="telnum != null">
+        telnum,
+      </if>
+      <if test="callDuration != null">
+        call_duration,
+      </if>
+      <if test="updateDate != null">
+        update_date,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="voicetext != null">
+        voiceText,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="guestId != null">
+        #{guestId,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="guestName != null">
+        #{guestName,jdbcType=VARCHAR},
+      </if>
+      <if test="guestGender != null">
+        #{guestGender,jdbcType=VARCHAR},
+      </if>
+      <if test="guestTelnum != null">
+        #{guestTelnum,jdbcType=VARCHAR},
+      </if>
+      <if test="capitalAccount != null">
+        #{capitalAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="shareName != null">
+        #{shareName,jdbcType=VARCHAR},
+      </if>
+      <if test="shareCode != null">
+        #{shareCode,jdbcType=VARCHAR},
+      </if>
+      <if test="buyNum != null">
+        #{buyNum,jdbcType=VARCHAR},
+      </if>
+      <if test="spec != null">
+        #{spec,jdbcType=VARCHAR},
+      </if>
+      <if test="payment != null">
+        #{payment,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null">
+        #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentCode != null">
+        #{departmentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentPhone != null">
+        #{departmentPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="telnum != null">
+        #{telnum,jdbcType=VARCHAR},
+      </if>
+      <if test="callDuration != null">
+        #{callDuration,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="voicetext != null">
+        #{voicetext,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.dataplatform.model.SharesScene">
+    update shares_shortage
+    <set>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="guestName != null">
+        guest_name = #{guestName,jdbcType=VARCHAR},
+      </if>
+      <if test="guestGender != null">
+        guest_gender = #{guestGender,jdbcType=VARCHAR},
+      </if>
+      <if test="guestTelnum != null">
+        guest_telnum = #{guestTelnum,jdbcType=VARCHAR},
+      </if>
+      <if test="capitalAccount != null">
+        capital_account = #{capitalAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="shareName != null">
+        share_name = #{shareName,jdbcType=VARCHAR},
+      </if>
+      <if test="shareCode != null">
+        share_code = #{shareCode,jdbcType=VARCHAR},
+      </if>
+      <if test="buyNum != null">
+        buy_num = #{buyNum,jdbcType=VARCHAR},
+      </if>
+      <if test="spec != null">
+        spec = #{spec,jdbcType=VARCHAR},
+      </if>
+      <if test="payment != null">
+        payment = #{payment,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null">
+        department = #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentCode != null">
+        department_code = #{departmentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentPhone != null">
+        department_phone = #{departmentPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="telnum != null">
+        telnum = #{telnum,jdbcType=VARCHAR},
+      </if>
+      <if test="callDuration != null">
+        call_duration = #{callDuration,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        update_date = #{updateDate,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="voicetext != null">
+        voiceText = #{voicetext,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where guest_id = #{guestId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.example.dataplatform.model.SharesScene">
+    update shares_shortage
+    set create_date = #{createDate,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=VARCHAR},
+      guest_name = #{guestName,jdbcType=VARCHAR},
+      guest_gender = #{guestGender,jdbcType=VARCHAR},
+      guest_telnum = #{guestTelnum,jdbcType=VARCHAR},
+      capital_account = #{capitalAccount,jdbcType=VARCHAR},
+      share_name = #{shareName,jdbcType=VARCHAR},
+      share_code = #{shareCode,jdbcType=VARCHAR},
+      buy_num = #{buyNum,jdbcType=VARCHAR},
+      spec = #{spec,jdbcType=VARCHAR},
+      payment = #{payment,jdbcType=VARCHAR},
+      department = #{department,jdbcType=VARCHAR},
+      department_code = #{departmentCode,jdbcType=VARCHAR},
+      department_phone = #{departmentPhone,jdbcType=VARCHAR},
+      `status` = #{status,jdbcType=VARCHAR},
+      telnum = #{telnum,jdbcType=VARCHAR},
+      call_duration = #{callDuration,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=VARCHAR},
+      voiceText = #{voicetext,jdbcType=LONGVARCHAR}
+    where guest_id = #{guestId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.dataplatform.model.SharesScene">
+    update shares_shortage
+    set create_date = #{createDate,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=VARCHAR},
+      guest_name = #{guestName,jdbcType=VARCHAR},
+      guest_gender = #{guestGender,jdbcType=VARCHAR},
+      guest_telnum = #{guestTelnum,jdbcType=VARCHAR},
+      capital_account = #{capitalAccount,jdbcType=VARCHAR},
+      share_name = #{shareName,jdbcType=VARCHAR},
+      share_code = #{shareCode,jdbcType=VARCHAR},
+      buy_num = #{buyNum,jdbcType=VARCHAR},
+      spec = #{spec,jdbcType=VARCHAR},
+      payment = #{payment,jdbcType=VARCHAR},
+      department = #{department,jdbcType=VARCHAR},
+      department_code = #{departmentCode,jdbcType=VARCHAR},
+      department_phone = #{departmentPhone,jdbcType=VARCHAR},
+      `status` = #{status,jdbcType=VARCHAR},
+      telnum = #{telnum,jdbcType=VARCHAR},
+      call_duration = #{callDuration,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=VARCHAR}
+    where guest_id = #{guestId,jdbcType=VARCHAR}
+  </update>
+  <select id="get" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from shares_shortage
+    where status=1
+  </select>
+
+</mapper>

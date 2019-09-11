@@ -4,11 +4,13 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.example.dataplatform.model.CardScene;
 import com.example.dataplatform.model.CardScenes;
+import com.example.dataplatform.model.Scene;
 import com.example.dataplatform.model.Task;
 import com.example.dataplatform.services.CardSceneService;
 import com.example.dataplatform.services.impl.CardSceneServiceImpl;
 import com.example.dataplatform.util.ChineseNumUtil;
 import com.example.dataplatform.util.DateUtil;
+import com.example.dataplatform.util.ScenesFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -149,7 +151,6 @@ public class DataplatformApplicationTests {
         System.out.println(s);
         s= DateUtil.parseStrToChineseStr("21010519","yyyyMMdd");
         System.out.println(s);
-
     }
 
     @Test
@@ -164,10 +165,8 @@ public class DataplatformApplicationTests {
         JSONObject jsontask=(JSONObject) JSON.toJSON(task);
         String jsonstr=JSON.toJSONString(jsontask);
         System.out.println(jsonstr);
-
     }
     @Test
-    @PostConstruct
     public void test7() throws Exception {
 
         List<CardScene> list=cardSceneService.get();
@@ -179,10 +178,15 @@ public class DataplatformApplicationTests {
         JSONObject jsontask=(JSONObject) JSON.toJSON(task);
         String jsonstr=JSON.toJSONString(jsontask);
         System.out.println(jsonstr);
-
         RestTemplateUtil restTemplateUtil=new RestTemplateUtil();
         String url="http://10.16.213.138:8088/callout-adapter/adapter/tasks";
         System.out.println(restTemplateUtil.PostJsonData(url,jsontask));
-
+    }
+    @Test
+    public void test8() throws Exception {
+        Scene sc =  ScenesFactory.getScene("CardScenes");
+        //System.out.println(sc.toString());
+        //sc.formateTaskRule();
+        sc.SendToRemoteAPI();
     }
 }
