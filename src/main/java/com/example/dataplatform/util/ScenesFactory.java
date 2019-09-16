@@ -9,7 +9,6 @@ import org.dom4j.io.SAXReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.xml.sax.XMLReader;
-
 import javax.sql.rowset.spi.XmlReader;
 import javax.xml.parsers.SAXParserFactory;
 import java.lang.reflect.Field;
@@ -36,7 +35,6 @@ public class ScenesFactory {
 //            return bean;
            Object obj= ApplicationContextHolder.getContext().getBean(clazz);
            return (Scene) obj;
-
         }catch (Exception e){
             e.printStackTrace();
             throw  new  RuntimeException();

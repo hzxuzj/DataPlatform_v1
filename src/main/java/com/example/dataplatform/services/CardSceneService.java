@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface CardSceneService {
     public List<CardScene> get();
-    public int process();
+    public int resultwrite(CardScene cardScene);
 }

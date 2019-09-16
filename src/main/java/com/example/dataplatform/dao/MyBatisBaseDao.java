@@ -26,5 +26,6 @@ public interface MyBatisBaseDao<Model, PK extends Serializable> {
 
     List<Model> get();
 
+    int resultwrite(Model record);
 
 }

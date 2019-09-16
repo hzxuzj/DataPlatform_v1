@@ -21,6 +21,7 @@ import org.springframework.util.unit.DataUnit;
 
 import javax.annotation.PostConstruct;
 import javax.xml.crypto.Data;
+import java.sql.Time;
 import java.util.*;
 
 @RunWith(SpringRunner.class)
@@ -150,6 +151,10 @@ public class DataplatformApplicationTests {
         s= DateUtil.parseStrToChineseStr("19911123","yyyyMMdd");
         System.out.println(s);
         s= DateUtil.parseStrToChineseStr("21010519","yyyyMMdd");
+        System.out.println(s);
+        s = DateUtil.parseTodaytoStr("2019-01-21 15:55:20","yyyy-MM-dd HH:mm:ss");
+        System.out.println(s);
+        s = DateUtil.parseTodaytimetoStr("2019-01-21 15:55:20","yyyy-MM-dd HH:mm:ss");
         System.out.println(s);
     }
 

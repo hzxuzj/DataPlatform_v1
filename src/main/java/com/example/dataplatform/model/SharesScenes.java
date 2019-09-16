@@ -7,6 +7,9 @@ import com.example.dataplatform.services.CardSceneService;
 import com.example.dataplatform.services.SharesSceneService;
 import com.example.dataplatform.util.DateUtil;
 import com.example.dataplatform.util.RestTemplateUtil;
+import com.example.dataplatform.util.SceneUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,20 +23,10 @@ import java.util.*;
 @RestController
 public  class SharesScenes extends AbstractScenes {
     @Autowired
-    Task task;
-    @Autowired
-    DynamicControl dynamicControl;
-    @Autowired
-    PersonalSynth personalSynth;
-    @Autowired
-    Phones phones;
-    @Autowired
-    RuleControl ruleControl;
-    @Autowired
-    Rules rules;
+   SharesScene sharesScene;
     @Autowired
     SharesSceneService sharesSceneService;
-
+    private final static Logger logger= LoggerFactory.getLogger(SharesScenes.class);
     private List<SharesScene> sharesScenes;
     public List<SharesScene> getSharesScenes() {
         return sharesScenes;
@@ -43,9 +36,6 @@ public  class SharesScenes extends AbstractScenes {
         this.sharesScenes = sharesScenes;
     }
 
-    public Task formateTaskRule(){
-        return super.formateTaskRule();
-    }
     public Task formateTask(){//将场景数据进行统一转换为接口调用数据
         task=formateTaskRule();
         List<SharesScene> list=sharesSceneService.get();
@@ -98,9 +88,33 @@ public  class SharesScenes extends AbstractScenes {
         task.setPhones(phoneslist);
         return  task;
     }
-    @RequestMapping(value="/dataplatform/sharescene/result",method = RequestMethod.POST)
+    @RequestMapping(value="/sharescene/result",method = RequestMethod.POST)
     public String resultWrite(@RequestBody JSONObject jsonParam){
-        System.out.println(jsonParam.toJSONString());
+        //System.out.println(jsonParam.toJSONString());
+        taskResult=JSON.toJavaObject(jsonParam,TaskResult.class);
+        //String str =JSON.toJSONString(taskResult);
+
+        sharesScene.setVoicetext(taskResult.getVoiceText());
+        sharesScene.setTelnum(taskResult.getTelnum());
+        sharesScene.setCallDuration(Integer.toString(taskResult.getCallDuration()));
+        String time =taskResult.getCallTime();
+        String today=DateUtil.parseTodaytoStr(time,"yyyy-MM-dd HH:mm:ss");
+        String todaytime=DateUtil.parseTodaytimetoStr(time,"yyyy-MM-dd HH:mm:ss");
+        sharesScene.setUpdateDate(today);
+        sharesScene.setUpdateTime(todaytime);
+        System.out.println(sharesScene.toString());
+        sharesScene.setGuestTelnum(taskResult.getPhone());
+        //回写状态
+        String status= SceneUtil.calculatestatus(taskResult.getIntention());
+        sharesScene.setStatus(status);
+        int result=sharesSceneService.resultwrite(sharesScene);
+        if (result>0){
+            logger.info("Sharescene "+result+" row write success");
+        }
+        else {
+            logger.info("Sharescene failed to write the result");
+        }
+        //System.out.println(str);
         return jsonParam.toJSONString();
     }
 

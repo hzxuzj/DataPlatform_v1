@@ -18,8 +18,8 @@ public class CardSceneServiceImpl implements CardSceneService {
         List<CardScene> list=cardSceneDAO.get();
         return list;
     }
-    public int process(){
-        List<CardScene> list=cardSceneDAO.get();
-        return 0;
+    public int resultwrite(CardScene cardScene){
+        int result =cardSceneDAO.resultwrite(cardScene);
+        return result;
     }
 }

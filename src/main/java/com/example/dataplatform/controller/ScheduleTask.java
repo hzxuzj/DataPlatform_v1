@@ -30,19 +30,19 @@ public class ScheduleTask {
     @Autowired
     SharesScenes sharesScenes;
     private final static Logger logger= LoggerFactory.getLogger(ScheduledTask.class);
-//    @Async("myExecutor")
-//    @Scheduled(fixedRate = 5000)
-//    public void CardScenerun()
-//    {
-//        cardScenes.SendToRemoteAPI();
-//        logger.info("测试login");
-//    }
-//    @Async("myExecutor")
-//    @Scheduled(fixedRate = 5000)
-//    public void SharesScenerun()
-//    {
-//        sharesScenes.SendToRemoteAPI();
-//        logger.info("测试Shares场景定时任务");
-//    }
+    @Async("myExecutor")
+    @Scheduled(fixedRate = 5000)
+    public void CardScenerun()
+    {
+        cardScenes.SendToRemoteAPI();
+        logger.info("测试Cardscene场景定时任务");
+    }
+    @Async("myExecutor")
+    @Scheduled(fixedRate = 5000)
+    public void SharesScenerun()
+    {
+        sharesScenes.SendToRemoteAPI();
+        logger.info("测试Sharescene场景定时任务");
+    }
 
 }

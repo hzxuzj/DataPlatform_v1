@@ -31,8 +31,9 @@ public abstract class AbstractScenes implements Scene{
     protected  Rules rules;
     @Autowired
     protected  CardSceneService cardSceneService;
-
-    public Task formateTaskRule(){
+    @Autowired
+    TaskResult taskResult;
+    public Task formateTaskRule()  throws RuntimeException{
         task=new Task();
         task.setTemplateId(2000003);
         SimpleDateFormat df =new SimpleDateFormat("yyyy-MM-ddHH:mm:ss");
@@ -72,15 +73,15 @@ public abstract class AbstractScenes implements Scene{
         task.setRules(ruleslist);
         return  task;
     }
-    public abstract Task formateTask();//{//将场景数据进行统一转换为接口调用数据
+    public abstract Task formateTask()  throws RuntimeException;//{//将场景数据进行统一转换为接口调用数据
 
   //  @RequestMapping(value="/dataplatform/result",method = RequestMethod.POST)
-    public String resultWrite(@RequestBody JSONObject jsonParam){
+    public String resultWrite (@RequestBody JSONObject jsonParam)  throws RuntimeException{
         System.out.println(jsonParam.toJSONString());
         return jsonParam.toJSONString();
     }
 
-    public String SendToRemoteAPI(){
+    public String SendToRemoteAPI()  throws RuntimeException{
         task=formateTask();
         JSONObject jsontask=(JSONObject) JSON.toJSON(task);
         String jsonstr=JSON.toJSONString(jsontask);

@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface SharesSceneService {
     public List<SharesScene> get();
+    public int resultwrite(SharesScene sharesScene);
 }

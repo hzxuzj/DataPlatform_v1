@@ -292,5 +292,15 @@
     from card_overdue
     where status=1
   </select>
-
+  <update id="resultwrite" parameterType="com.example.dataplatform.model.CardScene">
+    update card_overdue
+    set
+      `status` = #{status,jdbcType=CHAR},
+      telnum = #{telnum,jdbcType=VARCHAR},
+      call_duration = #{callDuration,jdbcType=INTEGER},
+      update_date = #{updateDate,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=VARCHAR},
+      voiceText = #{voicetext,jdbcType=LONGVARCHAR}
+    where guest_telnum = #{guestTelnum,jdbcType=VARCHAR} and `status`='1';
+  </update>
 </mapper>

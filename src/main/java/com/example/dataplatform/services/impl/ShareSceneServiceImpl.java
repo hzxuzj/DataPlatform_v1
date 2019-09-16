@@ -16,5 +16,9 @@ public class ShareSceneServiceImpl implements SharesSceneService {
         List<SharesScene> list=sharesSceneDAO.get();
         return list;
     }
+    public int resultwrite(SharesScene sharesScene){
+        int result =sharesSceneDAO.resultwrite(sharesScene);
+        return result;
+    }
 }
 

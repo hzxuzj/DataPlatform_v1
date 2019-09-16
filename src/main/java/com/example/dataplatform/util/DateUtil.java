@@ -2,6 +2,7 @@
 package  com.example.dataplatform.util;
 
 
+import javax.xml.crypto.Data;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -147,7 +148,24 @@ public class DateUtil {
         int day = cal.get(Calendar.DATE);//获取日
         return day;
     }
-
+    public static Integer getHour(Date date) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        int day = cal.get(Calendar.HOUR);//获取日
+        return day;
+    }
+    public static Integer getMin(Date date) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        int day = cal.get(Calendar.MINUTE);//获取日
+        return day;
+    }
+    public static Integer getSec(Date date) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        int day = cal.get(Calendar.SECOND);//获取日
+        return day;
+    }
     /**
      * 格式化Date时间
      *
@@ -182,6 +200,35 @@ public class DateUtil {
         String monthstring=ChineseNumUtil.int2chineseNum(month);
         String daystring=ChineseNumUtil.int2chineseNum(day);
         String result=yearstring+"年"+monthstring+"月"+daystring+"日";
+        return result;
+    }
+    public static String parseTodaytoStr(String time, String timeFromat) {
+        if (time == null || time.equals("")) {
+            return null;
+        }
+
+        Date date = null;
+        try {
+            DateFormat dateFormat = new SimpleDateFormat(timeFromat);
+            date = dateFormat.parse(time);
+        } catch (Exception e) {
+        }
+        DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+        String result = dateFormat.format(date);
+        return result;
+    }
+    public static String parseTodaytimetoStr(String time, String timeFromat) {
+        if (time == null || time.equals("")) {
+            return null;
+        }
+        Date date = null;
+        try {
+            DateFormat dateFormat = new SimpleDateFormat(timeFromat);
+            date = dateFormat.parse(time);
+        } catch (Exception e) {
+        }
+        DateFormat dateFormat = new SimpleDateFormat("HHmmss");
+        String result = dateFormat.format(date);
         return result;
     }
     /**

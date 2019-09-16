@@ -318,5 +318,15 @@
     from shares_shortage
     where status=1
   </select>
-
+  <update id="resultwrite" parameterType="com.example.dataplatform.model.SharesScene">
+    update shares_shortage
+    set
+      `status` = #{status,jdbcType=VARCHAR},
+      telnum = #{telnum,jdbcType=VARCHAR},
+      call_duration = #{callDuration,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=VARCHAR},
+      voiceText = #{voicetext,jdbcType=LONGVARCHAR}
+    where guest_telnum = #{guestTelnum,jdbcType=VARCHAR} and `status`='1';
+  </update>
 </mapper>
