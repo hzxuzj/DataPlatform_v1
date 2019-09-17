@@ -2,25 +2,23 @@ package com.example.dataplatform;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.example.dataplatform.model.CardScene;
-import com.example.dataplatform.model.CardScenes;
-import com.example.dataplatform.model.Scene;
-import com.example.dataplatform.model.Task;
+import com.example.dataplatform.model.*;
 import com.example.dataplatform.services.CardSceneService;
 import com.example.dataplatform.services.impl.CardSceneServiceImpl;
-import com.example.dataplatform.util.ChineseNumUtil;
-import com.example.dataplatform.util.DateUtil;
-import com.example.dataplatform.util.ScenesFactory;
+import com.example.dataplatform.util.*;
+import org.dom4j.Document;
+import org.dom4j.Element;
+import org.dom4j.io.SAXReader;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import com.example.dataplatform.util.RestTemplateUtil;
 import org.springframework.util.unit.DataUnit;
 
 import javax.annotation.PostConstruct;
 import javax.xml.crypto.Data;
+import java.io.File;
 import java.sql.Time;
 import java.util.*;
 
@@ -193,5 +191,59 @@ public class DataplatformApplicationTests {
         //System.out.println(sc.toString());
         //sc.formateTaskRule();
         sc.SendToRemoteAPI();
+    }
+    @Test
+    public  void  test9() throws  Exception{
+
+            //创建SAXReader对象
+
+            SAXReader reader = new SAXReader();
+            //读取文件 转换成Document
+         //   Document document = reader.read(new File("sceneconfig.xml"));
+            Document document =reader.read(DataplatformApplicationTests.class.getClassLoader().getResourceAsStream("sceneconfig.xml"));
+            //document转换为String字符串
+            String documentStr = document.asXML();
+            //System.out.println("document 字符串：" + documentStr);
+            //获取根节点
+            Element root = document.getRootElement();
+            //根节点转换为String字符串
+            String rootStr = root.asXML();
+            //System.out.println("root 字符串：" + rootStr);
+            //获取其中student1节点
+            Element student1Node = root.element("scene");
+            //student1节点转换为String字符串
+            String student1Str = student1Node.asXML();
+            System.out.println("scene 字符串：" + student1Str);
+    }
+
+    @Test
+    public  void  test10() throws  Exception{
+
+        //创建SAXReader对象
+        SAXReader reader = new SAXReader();
+        //读取文件 转换成Document
+        //   Document document = reader.read(new File("sceneconfig.xml"));
+        Document document =reader.read(DataplatformApplicationTests.class.getClassLoader().getResourceAsStream("sceneconfig.xml"));
+        //document转换为String字符串
+        String documentStr = document.asXML();
+        //System.out.println("document 字符串：" + documentStr);
+        //获取根节点
+        String id ="ShareScene";
+        Element root = (Element)document.selectSingleNode("//scene[@id='"+id+"']");
+        //根节点转换为String字符串
+        String rootStr = root.asXML();
+       // System.out.println("root 字符串：" + rootStr);
+        //获取其中student1节点
+        Element student1Node =root;
+                //= root.element("//scene[@id='"+id+"']");
+        //student1节点转换为String字符串
+        String student1Str = student1Node.asXML();
+        System.out.println(student1Str);
+       // System.out.println("scene 字符串：" + student1Str);
+        Task task=(Task) XmlUtil.toBean(Task.class,student1Str);
+
+        JSONObject jsontask=(JSONObject) JSON.toJSON(task);
+        String jsonstr=JSON.toJSONString(jsontask);
+        System.out.println(jsonstr);
     }
 }

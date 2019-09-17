@@ -93,7 +93,6 @@ public  class SharesScenes extends AbstractScenes {
         //System.out.println(jsonParam.toJSONString());
         taskResult=JSON.toJavaObject(jsonParam,TaskResult.class);
         //String str =JSON.toJSONString(taskResult);
-
         sharesScene.setVoicetext(taskResult.getVoiceText());
         sharesScene.setTelnum(taskResult.getTelnum());
         sharesScene.setCallDuration(Integer.toString(taskResult.getCallDuration()));

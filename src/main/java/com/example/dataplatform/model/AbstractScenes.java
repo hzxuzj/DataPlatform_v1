@@ -46,7 +46,7 @@ public abstract class AbstractScenes implements Scene{
         task.setCalloutResultSyncUrl("http://10.16.213.160:8080/dataplatform/result");
         //设置rulecontrol
         ruleControl=new RuleControl();
-        ruleControl.setRedialPeriod(0);
+        ruleControl.setRedialTimes(0);
         ruleControl.setRedialPeriod(24);
         List<String> rediareason =new ArrayList<>();
         rediareason.add("无法接通");

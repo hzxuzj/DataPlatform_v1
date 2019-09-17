@@ -4,22 +4,31 @@
 package com.example.dataplatform.model;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamImplicit;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Date;
 import java.util.Map;
 @Component
+@XStreamAlias("scene")
 public class Task {
 
+
+    @XStreamAlias("name")
     private String name;
+    @XStreamAlias("templateId")
     private int templateId;
+    @XStreamAlias("threshold")
     private int threshold;
     private List<String> dynamicProperties;
     private List<DynamicControl> dynamicControl;
     private List<Phones> phones;
     private List<String> telQueue;
+    @XStreamImplicit(itemFieldName = "rules")
     private List<Rules> rules;
+    @XStreamAlias("ruleControl")
     private RuleControl ruleControl;
     private PersonalSynth personalSynth;
     private String calloutResultSyncUrl;
@@ -186,6 +195,7 @@ class RuleControl {
 
     private int redialTimes;
     private int redialPeriod;
+    @XStreamImplicit(itemFieldName = "redialReason")
     private List<String> redialReason;
     public void setRedialTimes(int redialTimes) {
         this.redialTimes = redialTimes;
