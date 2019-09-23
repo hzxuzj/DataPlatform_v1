@@ -48,7 +48,7 @@
         <synTaskCreateTimeOut>180000</synTaskCreateTimeOut>
     </scene>
 
-    <scene id="ShareScene">
+    <scene id="SharesScene">
         <personalSynth>
             <voicePacketId>5d5e3118655fdf306067f682</voicePacketId>
             <volume>3</volume>
@@ -92,7 +92,7 @@
         <apiSwitch>true</apiSwitch>
         <synTaskSplitFlag>false</synTaskSplitFlag>
         <name>新股中签通知</name>
-        <calloutResultSyncUrl>http://10.16.213.160:8080/cardscene/result</calloutResultSyncUrl>
+        <calloutResultSyncUrl>http://10.16.213.160:8080/sharescene/result</calloutResultSyncUrl>
         <synTaskCreateTimeOut>180000</synTaskCreateTimeOut>
     </scene>
 </scenes>

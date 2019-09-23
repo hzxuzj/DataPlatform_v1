@@ -246,4 +246,16 @@ public class DataplatformApplicationTests {
         String jsonstr=JSON.toJSONString(jsontask);
         System.out.println(jsonstr);
     }
+
+    @Test
+    public  void  test11() throws  Exception{
+
+        List<String> list =new ArrayList<>();
+        list= ScenesFactory.getallScene();
+        System.out.println(list);
+        //System.out.println(sc.toString());
+        //sc.formateTaskRule();
+       // sc.SendToRemoteAPI();
+
+    }
 }

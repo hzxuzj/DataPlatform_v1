@@ -21,7 +21,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 @Component
 @RestController
-public  class SharesScenes extends AbstractScenes {
+public class SharesScenes extends AbstractScenes {
     @Autowired
    SharesScene sharesScene;
     @Autowired
@@ -37,13 +37,17 @@ public  class SharesScenes extends AbstractScenes {
     }
 
     public Task formateTask(){//将场景数据进行统一转换为接口调用数据
-        task=formateTaskRule();
+        try {
+            task=formateTaskRule("SharesScene");
+        }catch (Exception e){
+            logger.error("xml配置解析错误");
+        }
         List<SharesScene> list=sharesSceneService.get();
         this.sharesScenes=list;
         //设置动态字段
         SimpleDateFormat df =new SimpleDateFormat("yyyy-MM-ddHH:mm:ss");
         task.setName("新股中签通知"+df.format(new Date()));
-        task.setCalloutResultSyncUrl("http://10.16.213.160:8080/dataplatform/result");
+        //task.setCalloutResultSyncUrl("http://127.0.0.1:8080/sharescene/result");
         List<String> dynamicproperties = new ArrayList<String>();
         dynamicproperties.add("name");
         dynamicproperties.add("stockname");

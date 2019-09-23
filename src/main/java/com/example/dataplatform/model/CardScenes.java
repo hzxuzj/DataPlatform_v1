@@ -47,8 +47,12 @@ public  class CardScenes  extends AbstractScenes{
     }
 
     public Task formateTask() throws RuntimeException{//将场景数据进行统一转换为接口调用数据
-        task=formateTaskRule();
-        task.setCalloutResultSyncUrl("http://10.16.213.160:8080/cardscene/result");
+        try {
+            task=formateTaskRule("CardScene");
+        }catch (Exception e){
+            logger.error("xml配置解析错误");
+        }
+        //task.setCalloutResultSyncUrl("http://127.0.0.1:8080/cardscene/result");
         //CardSceneService cardSceneService=new CardSceneServiceImpl();
         List<CardScene> list=cardSceneService.get();
         this.cardScenes=list;
