@@ -30,6 +30,8 @@ public class ScheduleTask {
     Task task;
     @Autowired
     SharesScenes sharesScenes;
+    @Autowired
+    SceneResultController sceneResultController;
     private final static Logger logger= LoggerFactory.getLogger(ScheduledTask.class);
     @Async("myExecutor")
     @Scheduled(fixedRate = 5000)
@@ -39,7 +41,7 @@ public class ScheduleTask {
         list = ScenesFactory.getallScene();
         //System.out.println(list);
         for (String scene:list){
-            Scenerun(scene);
+            sceneResultController.Scenerun(scene);
         }
         //cardScenes.SendToRemoteAPI();
 //         Scene scene =ScenesFactory.getScene("CardScenes");
@@ -55,12 +57,12 @@ public class ScheduleTask {
 //        scene.SendToRemoteAPI();
 //        logger.info("测试Sharescene场景定时任务");
 //    }
-
-    @Async("myExecutor")
-    public void Scenerun(String id){
-        Scene scene =ScenesFactory.getScene(id);
-        scene.SendToRemoteAPI();
-        logger.info("测试"+id+"场景定时任务容器池");
-    }
+//    @Async("myExecutor")
+//    public void Scenerun(String id){
+//        Scene scene =ScenesFactory.getScene(id);
+//        String result =scene.SendToRemoteAPI();
+//        logger.info("开启"+id+"场景定时任务容器池，运行结果："+result);
+//        logger.info(Thread.currentThread().getName());
+//    }
 
 }

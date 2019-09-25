@@ -291,6 +291,8 @@
     <include refid="Blob_Column_List" />
     from card_overdue
     where status=1
+    limit 50
+
   </select>
   <update id="resultwrite" parameterType="com.example.dataplatform.model.CardScene">
     update card_overdue
@@ -301,6 +303,16 @@
       update_date = #{updateDate,jdbcType=VARCHAR},
       update_time = #{updateTime,jdbcType=VARCHAR},
       voiceText = #{voicetext,jdbcType=LONGVARCHAR}
-    where guest_telnum = #{guestTelnum,jdbcType=VARCHAR} and `status`='1';
+    where guest_telnum = #{guestTelnum,jdbcType=VARCHAR} and `status`='2';
+  </update>
+  <update id="setallwaitstatus" parameterType="java.util.List">
+    update card_overdue
+    set `status`='2'
+    <where> customer_id in
+      <foreach collection="list" item="item" separator="," close=")" index="index" open="(">
+      #{item.customerId,jdbcType=BIGINT}
+      </foreach>
+      and `status`='1'
+    </where>
   </update>
 </mapper>

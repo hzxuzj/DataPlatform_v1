@@ -28,4 +28,7 @@ public interface MyBatisBaseDao<Model, PK extends Serializable> {
 
     int resultwrite(Model record);
 
+
+    int setallwaitstatus(@Param("list")List list);
+
 }

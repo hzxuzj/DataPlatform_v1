@@ -40,7 +40,7 @@ public class SharesScenes extends AbstractScenes {
         try {
             task=formateTaskRule("SharesScene");
         }catch (Exception e){
-            logger.error("xml配置解析错误");
+            logger.error("xml is wrong");
         }
         List<SharesScene> list=sharesSceneService.get();
         this.sharesScenes=list;

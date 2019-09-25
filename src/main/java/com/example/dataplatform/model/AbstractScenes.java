@@ -86,13 +86,16 @@ public abstract class AbstractScenes implements Scene{
 
     public String SendToRemoteAPI()  throws RuntimeException{
         task=formateTask();
+        if (task.getPhones().isEmpty()){
+            return "no data to execute";
+        }
         JSONObject jsontask=(JSONObject) JSON.toJSON(task);
         String jsonstr=JSON.toJSONString(jsontask);
-        System.out.println(jsonstr);
+        //System.out.println(jsonstr);
         RestTemplateUtil restTemplateUtil=new RestTemplateUtil();
         String url="http://10.16.213.138:8088/callout-adapter/adapter/tasks";
         String result =restTemplateUtil.PostJsonData(url,jsontask);
-        System.out.println(result);
+        //System.out.println(result);
         return result;
     };
 

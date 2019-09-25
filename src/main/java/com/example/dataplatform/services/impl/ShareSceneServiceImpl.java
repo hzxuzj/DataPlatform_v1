@@ -14,6 +14,12 @@ public class ShareSceneServiceImpl implements SharesSceneService {
     SharesSceneDAO sharesSceneDAO;
     public List<SharesScene> get(){
         List<SharesScene> list=sharesSceneDAO.get();
+//        for (SharesScene ss :list){
+//            sharesSceneDAO.setwaitstatus(ss);
+//        }
+        if (!list.isEmpty()){
+            sharesSceneDAO.setallwaitstatus(list);
+        }
         return list;
     }
     public int resultwrite(SharesScene sharesScene){

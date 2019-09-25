@@ -50,7 +50,7 @@ public  class CardScenes  extends AbstractScenes{
         try {
             task=formateTaskRule("CardScene");
         }catch (Exception e){
-            logger.error("xml配置解析错误");
+            logger.error("xml is wrong");
         }
         //task.setCalloutResultSyncUrl("http://127.0.0.1:8080/cardscene/result");
         //CardSceneService cardSceneService=new CardSceneServiceImpl();

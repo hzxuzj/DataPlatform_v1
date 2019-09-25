@@ -317,6 +317,7 @@
     <include refid="Blob_Column_List" />
     from shares_shortage
     where status=1
+    limit 50
   </select>
   <update id="resultwrite" parameterType="com.example.dataplatform.model.SharesScene">
     update shares_shortage
@@ -327,6 +328,17 @@
       update_date = #{updateDate,jdbcType=VARCHAR},
       update_time = #{updateTime,jdbcType=VARCHAR},
       voiceText = #{voicetext,jdbcType=LONGVARCHAR}
-    where guest_telnum = #{guestTelnum,jdbcType=VARCHAR} and `status`='1';
+    where guest_telnum = #{guestTelnum,jdbcType=VARCHAR} and `status`='2';
+  </update>
+
+  <update id="setallwaitstatus" parameterType="java.util.List">
+    update shares_shortage
+    set `status`='2'
+    <where>  guest_id in
+      <foreach collection="list" item="item" separator="," close=")" index="index" open="(">
+        #{item.guestId,jdbcType=BIGINT}
+      </foreach>
+      and `status`='1'
+    </where>
   </update>
 </mapper>
